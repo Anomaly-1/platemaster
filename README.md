@@ -1,5 +1,7 @@
 # FoodClick Web App
 
+![FoodClick]("FoodClick Branding.jpg")
+
 FoodClick is a web application designed to simplify meal planning by allowing users to take pictures of their fridges and receive recipe recommendations based on the ingredients they have. Users can also save their favorite recipes for future reference.
 
 ## Technologies Used
