@@ -3,7 +3,7 @@
     <input type="file" @change="uploadImage" id="imageInput" class="hidden" />
     <label for="imageInput" class="block sm:size-24 md:size-40 lg:size-60 bg-blue-950 rounded-md cursor-pointer">
       <div class="absolute inset-0 flex items-center justify-center text-white font-bold text-xl md:text-2xl">
-        <p>Upload</p> 
+        <p>{{ uploadText }}</p> <!-- Display dynamic upload text -->
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
           <path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
         </svg>
@@ -16,8 +16,14 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 export default {
+  data() {
+    return {
+      uploadText: 'Upload', // Initial text
+    };
+  },
   methods: {
     async uploadImage(event) {
+      this.uploadText = 'Loading...'; // Change text to 'Loading...'
       let file = event.target.files[0];
 
       if (file) {
@@ -50,6 +56,7 @@ export default {
       const response = await result.response;
       const text = response.text();
       this.$emit('parsedData', this.parseResponse(text));
+      this.uploadText = 'Upload'; // Reset text to 'Upload' after the process is complete
     },
     parseResponse(response) {
       let tokens = response.split(" ");
