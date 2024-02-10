@@ -64,6 +64,9 @@ To run FoodClick locally, follow these steps:
 3. Explore the recipe recommendations based on your fridge's contents.
 4. Save your favorite recipes for quick access later.
 
+## How To Guide
+[Click Here](https://scribehow.com/shared/FoodClick__How_To__Q0BlpagwS3eeP4ZW0P4cRQ)
+
 ## Notice
 
 A .env file containing a supabase key & url + a Gemini key is required for this program to function.
