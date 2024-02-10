@@ -70,7 +70,7 @@ A .env file containing a supabase key & url + a Gemini key is required for this 
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://opensource.org/license/bsd-3-clause/) file for details.
+This project is licensed under the BSD-Clause-3 License - see the [LICENSE](https://opensource.org/license/bsd-3-clause/) file for details.
 
 Created by Arjun Hariharan - TSA Software Development
 
