@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     }
   },
   modules: ["@nuxtjs/tailwindcss", "@nuxtjs/supabase"],
+  css:['~/assets/styles.scss'],
   supabase: {
     redirect: false,
   },

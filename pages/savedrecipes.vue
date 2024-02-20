@@ -42,7 +42,7 @@ definePageMeta({
         <div class="flex flex-col h-full">
           <div class="overflow-hidden">
             <p
-              class="text-gray-600 dark:text-gray-300 break-words flex-grow"
+              class="markdown-content text-gray-600 dark:text-gray-300 break-words flex-grow"
               v-html="formatRecipeText(recipe.recipe_text)"
               :class="{ 'max-h-20': !recipe.expanded }"
             ></p>
@@ -63,6 +63,8 @@ definePageMeta({
 </template>
 
 <script>
+import {marked} from 'marked';
+
 export default {
   data() {
     return {
@@ -105,7 +107,7 @@ export default {
       }
     },
     formatRecipeText(text) {
-      return text.replace(/\n/g, '<br>');
+      return marked(text);
     },
     toggleExpand(recipe) {
       recipe.expanded = !recipe.expanded;

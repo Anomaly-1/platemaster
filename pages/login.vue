@@ -21,7 +21,8 @@ async function login() {
     <head>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/motion-tailwind/motion-tailwind.css">
     </head>
-    <body class="bg-white rounded-lg py-5">    
+    <body class="bg-white rounded-lg py-5"> 
+    <!-- <ThemeToggle/>    -->
     <div class="container flex flex-col mx-auto bg-white rounded-lg pt-12 my-5 h-screen">
         <div class="flex justify-center w-full h-full my-auto xl:gap-14 lg:justify-normal md:gap-5 draggable">
             <div class="flex items-center justify-center w-full lg:p-12">

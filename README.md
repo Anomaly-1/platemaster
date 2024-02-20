@@ -35,6 +35,8 @@ FoodClick offers the following features:
 - **Recipe Recommendations**: Based on the identified ingredients, FoodClick suggests recipes that users can prepare using those ingredients.
 - **Save Recipes**: Users can save their favorite recipes to access them later for cooking.
 
+---
+
 ## Installation
 
 To run FoodClick locally, follow these steps:
@@ -67,6 +69,8 @@ To run FoodClick locally, follow these steps:
 ## How To Guide
 [Click Here](https://scribehow.com/shared/FoodClick__How_To__Q0BlpagwS3eeP4ZW0P4cRQ)
 
+---
+
 ## Notice
 
 A .env file containing a supabase key & url + a Gemini key is required for this program to function.
@@ -76,5 +80,3 @@ A .env file containing a supabase key & url + a Gemini key is required for this 
 This project is licensed under the BSD-Clause-3 License - see the [LICENSE](https://opensource.org/license/bsd-3-clause/) file for details.
 
 Created by Arjun Hariharan - TSA Software Development
-
----
