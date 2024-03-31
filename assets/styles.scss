@@ -9,6 +9,18 @@
     font-size: 16px;
     line-height: 1.6;
   }
+
+  body {
+    overflow-y: hidden; /* Hide vertical scrollbar */
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+  }
+
+  .outfit-outfit {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600; /* Adjust the font weight as needed */
+    font-style: normal;
+  }  
   
   .markdown-content h1 {
     font-size: 2em;
@@ -86,4 +98,11 @@
   
   .markdown-content sub {
     bottom: -0.25em;
+  }
+
+  .markdown-content img {
+    width: 20rem;
+    height: 20rem;
+    margin: auto;
+    margin-bottom: 1em;
   }

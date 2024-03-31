@@ -12,7 +12,7 @@ definePageMeta({
         v-model="searchTerm"
         type="text"
         placeholder="Search recipes..."
-        class="w-full pl-10 pr-3 py-2 border rounded-lg dark:bg-gray-800 dark:text-white"
+        class="w-full pl-10 pr-3 py-2 border border-2 rounded-lg bg-transparent"
       />
       <!-- Search Icon -->
       <svg
@@ -20,7 +20,7 @@ definePageMeta({
         fill="none"
         viewBox="0 0 24 24"
         stroke-width="1.5"
-        stroke="currentColor"
+        stroke="white"
         class="absolute top-1/2 transform -translate-y-1/2 left-3 w-6 h-6 text-gray-400 dark:text-gray-300"
       >
         <path
@@ -30,14 +30,14 @@ definePageMeta({
         />
       </svg>
       <!-- Recipe Counter -->
-      <div class="ml-auto text-gray-500 dark:text-gray-400 ml-4">{{ totalRecipes }}</div>
+      <div class="text-gray-500 dark:text-gray-400 ml-4"> {{ totalRecipes }} Total Recipes Found</div>
     </div>
     <!-- Recipe Grid -->
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
       <div
         v-for="recipe in filteredRecipes"
         :key="recipe.id"
-        class="p-4 bg-white dark:bg-gray-800 rounded-lg shadow-md"
+        class="p-4 border border-2 rounded-lg shadow-md"
       >
         <div class="flex flex-col h-full">
           <div class="overflow-hidden">

@@ -1,9 +1,8 @@
 <script setup>
-const supabase = useSupabaseClient();
+
 function toggleMenu() {
     const dashboard = document.getElementById("default-sidebar")
     const dashboardIcon = document.getElementById("dashboard-icon")
-
     if (dashboard.style.visibility != 'hidden') {
         dashboard.style.visibility = 'hidden'
         dashboardIcon.style.visibility = 'visible'
@@ -26,24 +25,23 @@ async function logout() {
 </script>
 
 <template>
-        <div class="absolute top-0 left-1 w-18 h-14 m-10 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700" id="dashboard-icon">
-            <button @click="toggleMenu()" class="w-12 h-10" fill="white">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-12 h-12">
+        <div class="absolute top-0 left-1 md:left-10 lg:left-20 xl:left-30 w-10 md:w-18 lg:w-24 h-10 md:h-14 lg:h-18 m-2 md:m-4 lg:m-6 xl:m-8" id="dashboard-icon">
+            <button @click="toggleMenu()" class="w-8 md:w-12 lg:w-16 h-8 md:h-10 lg:h-12 fill-current">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-8 md:w-10 lg:w-12 h-8 md:h-10 lg:h-12">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
                 </svg>
             </button>
         </div>
 
-        <ThemeToggle/>
 
-        <aside id="default-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+
+        <aside id="default-sidebar" class="dark bg-black fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 translate-x-0" aria-label="Sidebar">
+            <div class="h-full px-3 py-4 overflow-y-auto border-r-4">
                 <ul class="space-y-3 font-medium">
                     <li>
                         <a @click="toggleMenu()" href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path fill-rule="evenodd" d="M2.25 4.5A.75.75 0 0 1 3 3.75h14.25a.75.75 0 0 1 0 1.5H3a.75.75 0 0 1-.75-.75Zm14.47 3.97a.75.75 0 0 1 1.06 0l3.75 3.75a.75.75 0 1 1-1.06 1.06L18 10.81V21a.75.75 0 0 1-1.5 0V10.81l-2.47 2.47a.75.75 0 1 1-1.06-1.06l3.75-3.75ZM2.25 9A.75.75 0 0 1 3 8.25h9.75a.75.75 0 0 1 0 1.5H3A.75.75 0 0 1 2.25 9Zm0 4.5a.75.75 0 0 1 .75-.75h5.25a.75.75 0 0 1 0 1.5H3a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                             </svg>
                             <span class="ms-3">Dashboard</span>
                         </a>
@@ -54,7 +52,16 @@ async function logout() {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
                             </svg>
-                        <span class="flex-1 ms-3 whitespace-nowrap">Clickup</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Search or Generate</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/inganalyzer" class=" flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                            </svg>  
+                        <span class="flex-1 ms-3 whitespace-nowrap">Analyze Ingredients</span>
                         </a>
                     </li>
                     <li>
@@ -91,3 +98,14 @@ async function logout() {
             </div>
         </aside>
 </template>
+
+<script>
+export default {
+  mounted() {
+    const dashboard = document.getElementById("default-sidebar")
+    const dashboardIcon = document.getElementById("dashboard-icon")
+    dashboard.style.visibility = 'hidden'
+    dashboardIcon.style.visibility = 'visible'
+  }
+}
+</script>

@@ -16,6 +16,7 @@ FoodClick is built using the following technologies:
 - **JavaScript**
 - **HTML** 
 - **Vite.js**
+- **SCSS**
 - **Gemini API**
 
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nuxtjs/nuxtjs-original.svg" />
@@ -25,6 +26,7 @@ FoodClick is built using the following technologies:
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" />
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
+<img width=76px src="https://natqe.gallerycdn.vsassets.io/extensions/natqe/scss-generator/1.2.9/1550339585248/Microsoft.VisualStudio.Services.Icons.Default" />
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" />
 
 ## Features

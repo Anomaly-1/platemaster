@@ -1,24 +1,30 @@
 <template>
-  <div>
-    <div class="sticky top-0 py-4 z-10">
-      <h2 class="text-2xl font-bold mb-4 text-blue-800 dark:text-blue-300">Ingredients</h2>
+  <div class="ingredients-container max-w-full mx-20">
+    <h1 class="title text-white text-4xl font-bold mb-8 outfit-outfit">Ingredients</h1>
+    <div class="ingredient-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-8 overflow-auto">
+      <div v-for="(ingredient, index) in itemsArray" :key="index" class="ingredient-box relative flex items-center justify-center border border-white p-4 mb-4"
+           @mouseover="showDelete[index] = true" @mouseout="showDelete[index] = false">
+        <span class="text-white px-4 py-2 uppercase outfit-outfit">{{ ingredient }}</span>
+        <img v-show="showDelete[index]" @click="deleteIngredient(index)" src="/delete-icon.png" alt="Delete Icon" class="delete-icon w-4 h-4 absolute top-0 right-0 cursor-pointer">
+      </div>
     </div>
-    <div class="overflow-y-auto max-h-[calc(100vh-6rem)]">
-      <ul class="space-y-2">
-        <li v-for="(item, index) in items" :key="index" class="flex items-center justify-between bg-white dark:bg-gray-800 p-3 rounded-lg shadow-md">
-          <span class="text-gray-800 dark:text-gray-300">{{ item }}</span>
-          <button @click="deleteItem(index)" class="text-red-600 dark:text-red-400">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </li>
-      </ul>
+    <div class="add-ingredient flex items-center mt-8">
+      <input v-model="newIngredient" type="text" placeholder="Add Ingredient" class="ingredient-input px-2 py-2 border border-white rounded-none text-white bg-transparent outfit-outfit flex-grow mr-4 w-full">
+      <img src="/plus-icon.png" alt="Plus Icon" class="plus-icon w-6 h-6 cursor-pointer" @click="addIngredient">
     </div>
-    <div class="mt-4">
-      <input type="text" v-model="newItem" class="border border-gray-300 dark:border-gray-700 p-2 rounded-md mr-2 focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-600">
-      <button @click="addItem" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-600">
-        Add Item
+    <br>
+    <div class="justify-content text-center">
+      <button @click="emitIngredients" class="create-recipe-button border border-white text-white py-2 px-4 mt-4 text-lg flex items-center space-x-2 transition-transform">
+        <span>Create Recipe</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+      <button @click="emitFindRecipe" class="find-recipe-button border border-white text-white py-2 px-4 mt-4 text-lg flex items-center space-x-2 transition-transform">
+        <span>Find Recipe</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
       </button>
     </div>
   </div>
@@ -27,29 +33,53 @@
 <script>
 export default {
   props: {
-    items: {
-      type: Array,
-      required: true,
-    }
+    items: Array // Update prop type to Array
   },
   data() {
     return {
-      newItem: ''
+      newIngredient: '',
+      showDelete: []
     };
   },
+  computed: {
+    itemsArray() { 
+      // Ensure items is an array before processing
+      if (Array.isArray(this.items)) {
+        return this.items; // Return the array directly
+      } else {
+        return []; // Return an empty array if items is not an array
+      }
+    }
+  },
   methods: {
-    deleteItem(index) {
-      this.items.splice(index, 1);
-    },
-    addItem() {
-      if (this.newItem.trim() !== '') {
-        this.items.push(this.newItem.trim());
-        this.newItem = '';
+    addIngredient() {
+      if (typeof this.newIngredient === 'string' && this.newIngredient.trim() !== '') {
+        this.itemsArray.push(this.newIngredient.trim());
+        this.newIngredient = '';
       }
     },
-    sendItemsToParent() {
-      this.$emit('items-to-parent', this.items);
+    deleteIngredient(index) {
+      this.itemsArray.splice(index, 1);
+      this.emitIngredients();
+    },
+    emitIngredients() {
+      this.$emit('ingredients-updated', this.itemsArray);
+    },
+    emitFindRecipe() {
+      this.$emit('find-recipe', this.itemsArray);
     }
   }
-}
+};
 </script>
+
+<style scoped>
+/* Show delete icon when hovering over ingredient */
+.ingredient-box:hover .delete-icon {
+  display: block;
+}
+
+/* Hide delete icon by default */
+.delete-icon {
+  display: none;
+}
+</style>

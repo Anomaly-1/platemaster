@@ -1,12 +1,28 @@
 <template>
   <div class="relative">
-    <input type="file" @change="uploadImage" id="imageInput" class="hidden" />
-    <label for="imageInput" class="block sm:size-24 md:size-40 lg:size-60 bg-blue-950 rounded-md cursor-pointer">
-      <div class="absolute inset-0 flex items-center justify-center text-white font-bold text-xl md:text-2xl">
-        <p>{{ uploadText }}</p> <!-- Display dynamic upload text -->
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-        </svg>
+    <label for="imageInput" class="w-full md:w-100 lg:w-140 md:h-80 max-w-3xl mx-auto border-white rounded-lg overflow-hidden shadow-lg flex">
+      <div class="w-full md:w-2/3 p-6 space-y-6">
+        <h1 id="title" class="text-xl md:text-3xl font-bold text-white mb-2 outfit-outfit">Find Ingredients</h1>
+        <p class="text-gray-300 mb-4 outfit-outfit">Scan an image of your fridge so we can easily find several useful ingredients to use in hundreds of tasty, easy and healthy recipes.</p>
+        <div type="button" class="bottom-0 left-0 flex items-center justify-center px-4 py-2 bg-white hover:bg-gray-100 text-black rounded-lg focus:outline-none focus:ring focus:ring-blue-200">
+          <span>{{ uploadText }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6 m-2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
+          </svg>
+          <input type="file" @change="uploadImage" id="imageInput" class="hidden" />
+        </div>
+        <p class="text-sm leading-relaxed text-white flex items-center">
+          <a @click="process" class="font-bold text-gray-400 flex items-center">
+              Manually List Ingredients
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-1">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+              </svg>
+            </a>
+        </p>
+
+      </div>
+      <div class="hidden md:flex md:w-1/3 items-center justify-center">
+        <img src="/avacado.png" alt="Avocado" class="w-48 h-auto floating-card mb-16">
       </div>
     </label>
   </div>
@@ -46,6 +62,9 @@ export default {
         reader.readAsDataURL(file);
       }
     },
+    async process() {
+      this.$emit('parsedData', "Apples");
+    },
     async run(genpart) {
       const genAI = new GoogleGenerativeAI(gemini);
       const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
@@ -53,10 +72,11 @@ export default {
       const prompt = "Clearly and ONLY list ALL food ingredients in this image, every ingredient should have the first letter capitalized and should be only separated by a single space. It should only contain valid food ingredients.";
 
       const result = await model.generateContent([prompt, genpart]);
-      const response = await result.response;
-      const text = response.text();
-      this.$emit('parsedData', this.parseResponse(text));
-      this.uploadText = 'Upload'; // Reset text to 'Upload' after the process is complete
+      const firstresponse = await result.response;
+      const text = firstresponse.text();
+      
+      this.$emit('parsedData', text);
+      this.uploadText = 'Upload';
     },
     parseResponse(response) {
       let tokens = response.split(" ");
@@ -71,11 +91,28 @@ export default {
 </script>
 
 <style scoped>
-label {
-  display: block;
-  width: 80vw;
-  max-width: 400px;
-  height: 60vh; 
-  max-height: 300px;
+/* Add any additional styling here */
+.outfit-outfit {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /* Adjust the font weight as needed */
+  font-style: normal;
+}
+
+#title {
+  font-weight: 600;
+}
+
+.floating-card {
+  animation: floatAnimation 3s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); /* Adjust duration as needed */
+}
+
+@keyframes floatAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px); /* Adjust the amount of floating */
+  }
 }
 </style>

@@ -1,22 +1,25 @@
 <template>
   <div class="max-w-md mx-auto ml-8">
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-      <h2 class="text-xl font-bold mb-4 text-blue-800 dark:text-blue-300">Recipe</h2>
-      <div v-if="isLoading" class="text-gray-600 dark:text-gray-400">Loading...</div>
+    <div class="bg-black dark:bg-white shadow-md border-2 border-white dark:border-black p-6">
+      <h1 class="text-4xl font-bold mb-4 text-white dark:text-black">Recipe</h1>
+      <div v-if="isLoading" class="text-gray-400 dark:text-gray-600">Loading...</div>
       <div v-else-if="response">
         <div class="markdown-content" v-html="renderedMarkdown"></div>
       </div>
-      <div v-else class="text-gray-600 dark:text-gray-400">No recipe found.</div>
-      <button v-if="response && !recipeSaved" @click="saveRecipe" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:ring-blue-400 dark:focus:ring-blue-600">
+      <div v-else class="text-gray-400 dark:text-gray-600">No recipe found.</div>
+      <button v-if="response && !recipeSaved"
+              @click="saveRecipe(hit.recipe.label, hit.recipe.image, hit.recipe.calories, hit.recipe.url, index)"
+              class="text-white border border-white hover:border-black hover:bg-white hover:text-black font-bold py-1 px-4 rounded-full inline-block transition duration-300 ease-in-out">
         Save Recipe
       </button>
+
     </div>
   </div>
 </template>
 
 <script>
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import {marked} from 'marked';
+import { marked } from 'marked';
 
 export default {
   props: {
