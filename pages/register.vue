@@ -30,7 +30,7 @@ async function signUp() {
         password: password.value
     });
     if (error) throw error
-    navigateTo("/clickup");
+    navigateTo("/start");
   } catch (error) {
     document.getElementById("Mg").innerHTML = "Error: " + error.message;
   } finally {

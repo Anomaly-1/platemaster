@@ -57,7 +57,10 @@
                   <div class="visit-recipe-btn-container mr-2">
                       <a :href="hit.recipe.url" target="_blank" rel="noopener noreferrer" class="text-center block recipe-link border border-white text-white font-bold py-1 px-4 rounded-full inline-block transition duration-300 ease-in-out hover:bg-white hover:text-black">Visit Recipe</a>
                   </div>
-                  additionally
+                  <!-- Conditionally render the "Save Recipe" button -->
+                  <div v-if="!isRecipeSaved(index)" class="visit-recipe-btn-container mr-2">
+                      <a @click="saveRecipe(hit.recipe.label, hit.recipe.image, hit.recipe.calories, hit.recipe.url, index)" class="text-center block recipe-link border border-white text-white font-bold py-1 px-4 rounded-full inline-block transition duration-300 ease-in-out hover:bg-white hover:text-black cursor-pointer">Save Recipe</a>
+                  </div>
               </div>
           </div>
         </div>
