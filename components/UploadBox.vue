@@ -79,8 +79,8 @@ export default {
 
       const result = await model.generateContent([prompt, genpart]);
       const firstresponse = await result.response;
-      const text = firstresponse.text();
-      
+      const text = firstresponse.text().split(" ");
+
       this.$emit('parsedData', text);
       this.uploadText = 'Upload';
     },

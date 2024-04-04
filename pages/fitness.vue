@@ -19,19 +19,6 @@
         <p class="text-3xl md:text-4xl font-semibold">{{ timeToReachGoal }}</p>
       </div>
     </div>
-
-    <!-- Card for calorie counter -->
-    <div class="ml-4 mr-2 mt-8 bg-transparent text-white p-4 rounded-lg border border-white text-center">
-      <h3 class="text-white text-lg md:text-xl font-bold mb-2">Calories Left for the Day</h3>
-      <p class="text-white text-3xl md:text-4xl font-semibold">{{ caloriesLeft }}</p>
-
-      <!-- Input field for users to input a value -->
-      <form @submit.prevent="submitCalories">
-        <input type="number" v-model="caloriesInput" class="bg-black w-20 h-10 text-white rounded-md p-2 mt-4 border border-white">
-        <button type="submit" class="text-white bg-black hover:bg-gray-800 font-bold py-2 px-4 rounded mt-4 ml-4 border border-white">Deduct</button>
-        <button @click="resetCalories" class="text-white bg-black hover:bg-gray-800 font-bold py-2 px-4 rounded mt-4 ml-4 border border-white">Reset</button>
-      </form>
-    </div>
   </div>
   <Sidebar/>
 </template>
@@ -42,102 +29,99 @@ import { ref, onMounted } from 'vue';
 
 export default {
   setup() {
-      const bmi = ref(0);
-      const recommendedCalories = ref(0);
-      const timeToReachGoal = ref('');
-      const caloriesInput = ref('');
-      const caloriesLeft = ref(0);
+    const bmi = ref(0);
+    const recommendedCalories = ref(0);
+    const timeToReachGoal = ref('');
+    const caloriesInput = ref('');
+    const caloriesLeft = ref(0);
 
     onMounted(async () => {
       await fetchUserData();
     });
-    
-  
+
     async function fetchUserData() {
       try {
-        // Fetch user data and calculate BMI
         const supabase = useSupabaseClient();
-        const { data: { user } } = await supabase.auth.getUser()
-        const { data: userData, error } = await supabase
-          .from('user_responses')
-          .select('*')
-          .eq('email', user.email);
-        if (error) {
-          throw error;
-        }
+        const { data: { user } } = await supabase.auth.getUser();
 
-
-        calculateBMI(userData[0].weight_kgs, userData[0].height_cm)
-        // Calculate recommended calorie intake per day
-        const reccalories = calculateRecommendedCalories(userData[0].sex, userData[0].age, userData[0].weight_kgs, userData[0].height_cm, userData[0].lifestyle, userData[0].mass_change_preference)
-        
-        // Check if user's email exists in the table
-        const { data: userEmailData, error: emailError } = await supabase
-          .from('usercalories')
+        // Check if there's an entry corresponding to the user's email in the userfitness table
+        const { data: userFitnessData, error: fitnessError } = await supabase
+          .from('userfitness')
           .select('*')
           .eq('useremail', user.email);
 
-        if (emailError) {
-          throw emailError;
+        if (fitnessError) {
+          throw fitnessError;
         }
 
-        if (userEmailData.length === 0) {
-          // If the email doesn't exist, insert a new row
-          await supabase
-            .from('usercalories')
-            .insert([{ useremail: user.email, recommended_calories: 0 }]);
+        if (userFitnessData.length > 0) {
+          // If an entry exists, retrieve recommended calories, BMI, and goal time
+          recommendedCalories.value = userFitnessData[0].recommended_calories;
+          bmi.value = userFitnessData[0].bmi;
+          timeToReachGoal.value = userFitnessData[0].goaltime;
+        } else {
+          // If no entry exists, calculate data and insert a new entry
+          const userData = await calculateUserData(user.email);
+          recommendedCalories.value = userData.recommended_calories;
+          bmi.value = userData.bmi;
+          timeToReachGoal.value = userData.goaltime;
         }
-
-        caloriesLeft.value = reccalories
-        // Calculate approximate time to reach goal
-        calculateTimeToReachGoal(userData[0].weight_kgs, userData[0].goal_weight, userData[0].mass_change_preference, reccalories)
       } catch (error) {
         console.error('Error fetching user data:', error.message);
       }
     }
 
-    async function getRecommendedCalories(userEmail) {
-      try {
-          const supabase = useSupabaseClient();
-          const { data: { user } } = await supabase.auth.getUser()
-          
-          // Fetch recommended calories for the given user email
-          const { data, error } = await supabase
-            .from('usercalories')
-            .select('recommended_calories')
-            .eq('useremail', user.email);
+    async function calculateUserData(userEmail) {
+      // Fetch user data from the user_responses table
+      const supabase = useSupabaseClient();
+      const { data: userData, error: dataError } = await supabase
+        .from('user_responses')
+        .select('*')
+        .eq('email', userEmail);
 
-          if (error) {
-            throw error;
-          }
+      if (dataError) {
+        throw dataError;
+      }
 
-          if (data.length === 0) {
-            // If no data found, return null or any default value as needed
-            return null;
-          }
+      // Calculate BMI, recommended calories, and goal time
+      const bmiValue = calculateBMI(userData[0].weight, userData[0].height);
+      const recommendedCaloriesValue = calculateRecommendedCalories(userData[0].sex, userData[0].age, userData[0].weight, userData[0].height, userData[0].lifestyle, userData[0].mass_change_preference);
+      const timeToReachGoalValue = calculateTimeToReachGoal(userData[0].weight, userData[0].goal_weight, userData[0].mass_change_preference, recommendedCaloriesValue);
 
-          // Extract and return the recommended calories
-          return data[0].recommended_calories;
-        } catch (error) {
-          console.error('Error fetching recommended calories:', error.message);
-          return null;
-        }
+      console.log(bmiValue, recommendedCalories, timeToReachGoal);
+
+      // Insert a new entry into the userfitness table
+      await supabase
+        .from('userfitness')
+        .insert([{  
+          useremail: userEmail, 
+          recommended_calories: recommendedCaloriesValue, 
+          bmi: bmiValue, 
+          goaltime: timeToReachGoalValue 
+        }]);
+
+      return {
+        recommended_calories: recommendedCaloriesValue,
+        bmi: bmiValue,
+        goaltime: timeToReachGoalValue
+      };
     }
 
-    function calculateBMI(weightKg, heightCm) {
-      // Convert height from cm to meters
-      const heightM = heightCm / 100;
+    function calculateBMI(weight, height) {
       // Calculate BMI
-      bmi.value = (weightKg / (heightM * heightM)).toFixed(2);
+      const heightM = height * 0.0254;
+      
+      console.log(((weight/(0.99999918429)*(0.4535920000001679)) / (heightM * heightM)).toFixed(2))
+      return ((weight/(0.99999918429)*(0.4535920000001679)) / (heightM * heightM)).toFixed(2);
     }
 
     function calculateRecommendedCalories(sex, age, weight, height, lifestyle, changepref) {
 
       let bmr;
       if (sex === "Male") {
-          bmr = 66 + (6.23 * (weight * 2.20462)) + (12.7 * ((height / 1.00000054) * 0.393701)) - (6.8 * age)
+          bmr = 66 + (6.23 * weight) + (12.7 * height) - (6.8 * age)
       } else if (sex === "Female") {
-          bmr = 655 + (4.3 * (weight * 2.20462)) + (4.7 * ((height / 1.00000054) * 0.393701)) - (4.7 * age)
+          bmr = 655 + (4.3 * weight) + (4.7 * height) - (4.7 * age)
       }
 
       let tdemultiplier;
@@ -158,9 +142,7 @@ export default {
       const percentages = [0.75, 0.8, 0.88, 1, 1.12, 1.2, 1.25]
       const val = ['Extreme Cut', 'Moderate Cut', 'Mild Cut', 'Maintain', 'Mild Bulk', 'Moderate Bulk', 'Extreme Bulk'].indexOf(changepref)
 
-      recommendedCalories.value = (percentages[val] * calories_needed).toFixed(0)
-      
-      return recommendedCalories.value
+        return (percentages[val] * calories_needed).toFixed(0)
       }
 
 
@@ -170,13 +152,13 @@ export default {
 
       const goaldiff = Math.abs(currentWeight-goalWeight)
 
-      const weeks = goaldiff / (((reccalories - (reccalories / percentages[val]))*7) / 500)
+      const weeks = goaldiff / ((Math.abs(reccalories - (reccalories * percentages[val]))*7) / 3500)
 
       if (weeks === NaN) {
           weeks = 0
       }
 
-      timeToReachGoal.value = weeks.toFixed(0) + ' weeks';
+      return weeks.toFixed(0) + ' weeks';
     }
 
     function submitCalories() {
@@ -188,13 +170,9 @@ export default {
           // Clear the input field
           caloriesInput.value = '';
       }
-      }
+    }
 
-      function resetCalories() {
-          caloriesLeft.value = this.getRecommendedCalories();
-      }
-
-      return { bmi, recommendedCalories, timeToReachGoal, caloriesLeft, caloriesInput, submitCalories, fetchUserData };
+    return { bmi, recommendedCalories, timeToReachGoal, caloriesLeft, caloriesInput, submitCalories, fetchUserData };
   }
 };
 </script>

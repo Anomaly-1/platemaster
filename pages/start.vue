@@ -21,6 +21,7 @@ definePageMeta({
       <SliderForm
         v-else-if="currentQuestion !== null && currentQuestionType === 'slider'"
         :question="questions[currentQuestion].question"
+        :limit=questions[currentQuestion].limit
         @option-selected="handleOptionSelected"
       />
     </div>
@@ -34,9 +35,9 @@ export default {
     return {
       questions: [
         {
-          question: 'What is your weight? (kg)',
+          question: 'What is your weight? (lbs)',
           type: 'slider',
-          limit: '200' // Upper limit for weight
+          limit: '500' // Upper limit for weight
         },
         {
           question: 'How old are you?',
@@ -49,9 +50,9 @@ export default {
           options: ['Male', 'Female']
         },
         {
-          question: 'What is your height? (cm)',
+          question: 'What is your height? (in)',
           type: 'slider',
-          limit: '200' // Assuming maximum height to be 200 cm
+          limit: '84' // Assuming maximum height to be 200 cm
         },
         {
           question: 'What is your goal weight?',
@@ -61,7 +62,7 @@ export default {
         {
           question: 'How active is your lifestyle?',
           type: 'options',
-          options: [""]
+          options: ["No Exercise", "Light Exercise (3-5 days/week)", "Moderate Exercise (3-5 days/week)", "Heavy Exercise (6-7 days/week)", "Strenuous Training (2 or more times a day)"]
         },
         {
           question: 'How extreme would you like to cut or gain mass?',
@@ -90,28 +91,53 @@ export default {
     },
     async insertDataIntoSupabase() {
       const supabase = useSupabaseClient();
-      const { data: { user } } = await supabase.auth.getUser()
+      const { data: { user } } = await supabase.auth.getUser();
+
+      // Check if there are existing entries with the user's email
+      const { data: existingData, error: existingError } = await supabase
+        .from('user_responses')
+        .select('*')
+        .eq('email', user.email);
+
+      if (existingError) {
+        console.error('Error fetching existing data:', existingError.message);
+        return;
+      }
+
+      // Delete existing entries if found
+      if (existingData && existingData.length > 0) {
+        const { error: deleteError } = await supabase
+          .from('user_responses')
+          .delete()
+          .eq('email', user.email);
+
+        if (deleteError) {
+          console.error('Error deleting existing data:', deleteError.message);
+          return;
+        }
+      }
+
       // Extract form data
       const {
-        weight_lbs,
+        weight,
         age,
         sex,
-        height_cm,
+        height,
         goal_weight,
         activity_level,
         mass_change_preference
       } = this.formData;
 
-      // Insert data into Supabase table
+      // Insert new data into Supabase table
       const { data, error } = await supabase
         .from('user_responses')
         .insert([
           {
             email: user.email,
-            weight_lbs: this.formData[0],
+            weight: this.formData[0],
             age: this.formData[1],
             sex: this.formData[2],
-            height_cm: this.formData[3],
+            height: this.formData[3],
             goal_weight: this.formData[4],
             lifestyle: this.formData[5],
             mass_change_preference: this.formData[6]
@@ -123,8 +149,10 @@ export default {
       } else {
         console.log('Success');
         navigateTo("/clickup");
+        navigateTo("/clickup");
       }
     }
+
   },
   mounted() {
     // Ensure that currentQuestionType is set initially

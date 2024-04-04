@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col items-center justify-center h-screen">
     <label class="mt-10 sm:mt-20 block mb-4 text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-center">{{ question }}</label>
-    <input type="range" :min="0" :max="parseInt(limit)" v-model="sliderValue" class="block mt-4 w-3/4 sm:w-2/3 md:w-1/2 mb-4 appearance-none" @input="updateSliderValue">
+    <!-- Convert the limit prop to a number using parseInt() -->
+    <input type="range" :min="0" :max="maxLimit" v-model="sliderValue" class="block mt-4 w-3/4 sm:w-2/3 md:w-1/2 mb-4 appearance-none" @input="updateSliderValue">
     <div class="flex flex-col items-center">
       <div class="text-white text-3xl">{{ sliderCounter }}</div>
       <button @click="submitInput" class="border border-white bg-black hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded-lg mt-4 transition duration-300 ease-in-out">Continue</button>
@@ -19,7 +20,13 @@ export default {
     return {
       sliderValue: 0,
       sliderCounter: 0,
+      maxLimit: 0 // New data property to hold the numeric limit
     };
+  },
+  mounted() {
+    // Convert the limit prop to a numeric value and assign it to maxLimit
+    this.maxLimit = parseInt(this.limit);
+    console.log(parseInt(this.limit))
   },
   methods: {
     updateSliderValue() {
@@ -33,6 +40,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 /* Styling for the slider */
