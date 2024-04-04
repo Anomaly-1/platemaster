@@ -59,7 +59,7 @@
                   </div>
                   <!-- Conditionally render the "Save Recipe" button -->
                   <div v-if="!isRecipeSaved(index)" class="visit-recipe-btn-container mr-2">
-                      <a @click="saveRecipe(hit.recipe.label, hit.recipe.image, hit.recipe.calories, hit.recipe.url, index)" class="text-center block recipe-link border border-white text-white font-bold py-1 px-4 rounded-full inline-block transition duration-300 ease-in-out hover:bg-white hover:text-black cursor-pointer">Save Recipe</a>
+                      <a @click="saveRecipe(hit.recipe.label, hit.recipe.image, Math.round(hit.recipe.calories/hit.recipe.yield), hit.recipe.url, index)" class="text-center block recipe-link border border-white text-white font-bold py-1 px-4 rounded-full inline-block transition duration-300 ease-in-out hover:bg-white hover:text-black cursor-pointer">Save Recipe</a>
                   </div>
               </div>
           </div>
@@ -113,7 +113,7 @@ export default {
     },
     async saveRecipe(label, image, calories, url, id) {
         try {
-            const push = "<h1>"+label+"</h1>"+"\n"+"<img src="+image+" alt= Recipe>"+"\n"+"<b style='text-center'>Calories</b>: "+Math.round(calories)+"\n\n"+"<div style='display: flex; justify-content: center;'> <a href="+url+"target='_blank' rel='noopener noreferrer' style='text-align: center; display: block; border: 1px solid white; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 9999px; transition: background-color 0.3s, color 0.3s; text-decoration: none;'> Visit Recipe</a></div>";
+            const push = "<h1>"+label+"</h1>"+"\n"+"<img src="+image+" alt= Recipe>"+"\n"+"<b style='text-center'>Calories</b>: "+Math.round(calories)+"\n\n"+"<div style='display: flex; justify-content: center;'> <a href="+url+" target='_blank' rel='noopener noreferrer' style='text-align: center; display: block; border: 1px solid white; color: white; font-weight: bold; padding: 0.5rem 1rem; border-radius: 9999px; transition: background-color 0.3s, color 0.3s; text-decoration: none;'> Visit Recipe</a></div>";
             const supabase = useSupabaseClient();
             const { data: { user } } = await supabase.auth.getUser()
 
