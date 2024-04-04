@@ -64,12 +64,12 @@ async function logout() {
                         </a>
                     </li>
                     <li>
-                        <a href="/inganalyzer" class=" flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                        <a href="/recipeanalyzer" class=" flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
                             </svg>  
-                        <span class="flex-1 ms-3 whitespace-nowrap">Analyze Ingredients</span>
+                        <span class="flex-1 ms-3 whitespace-nowrap">Analyze Recipe</span>
                         </a>
                     </li>
                     <li>

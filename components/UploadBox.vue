@@ -4,15 +4,20 @@
       <div class="w-full md:w-2/3 p-6 space-y-6">
         <h1 id="title" class="text-xl md:text-3xl font-bold text-white mb-2 outfit-outfit">Find Ingredients</h1>
         <p class="text-gray-300 mb-4 outfit-outfit">Scan an image of your fridge so we can easily find several useful ingredients to use in hundreds of tasty, easy and healthy recipes.</p>
-        <div type="button" class="bottom-0 left-0 flex items-center justify-center px-4 py-2 bg-white hover:bg-gray-100 text-black rounded-lg focus:outline-none focus:ring focus:ring-blue-200">
+        <div 
+          class="bottom-0 left-0 flex items-center justify-center px-4 py-2 bg-white text-black rounded-lg focus:outline-none focus:ring focus:ring-blue-200 hover:bg-black hover:text-white hover:border-2 hover:border-white cursor-pointer"
+          @mouseover="isHovered = true" 
+          @mouseleave="isHovered = false"
+        >
           <span>{{ uploadText }}</span>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="w-6 h-6 m-2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" :stroke="isHovered ? 'white' : 'black'" class="w-6 h-6 m-2 transition-colors duration-300">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z" />
           </svg>
           <input type="file" @change="uploadImage" id="imageInput" class="hidden" />
         </div>
+
         <p class="text-sm leading-relaxed text-white flex items-center">
-          <a @click="process" class="font-bold text-gray-400 flex items-center">
+          <a @click="process" class="font-bold text-gray-400 flex items-center cursor-pointer">
               Manually List Ingredients
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 ml-1">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
@@ -35,6 +40,7 @@ export default {
   data() {
     return {
       uploadText: 'Upload', // Initial text
+      isHovered: false
     };
   },
   methods: {

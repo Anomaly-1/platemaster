@@ -15,7 +15,7 @@ definePageMeta({
           </template>
           <template v-else-if="selectedOption === 'Create Recipe'">
             <Recipe :items="parsedItems" />
-          </template>
+          </template> 
           <template v-else>
             <Result v-if="showFindRecipe" :items="parsedItems"/>
           </template>
@@ -44,7 +44,6 @@ export default {
     },
     handleItemsUpdated(updatedItems) {
       this.parsedItems = updatedItems;
-      console.log(this.parsedItems)
       this.selectedOption = 'Create Recipe'; // Set the selected option to 'Create Recipe'
     },
     handleFindRecipe(updatedItems) {

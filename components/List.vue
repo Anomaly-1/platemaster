@@ -60,7 +60,6 @@ export default {
     },
     deleteIngredient(index) {
       this.itemsArray.splice(index, 1);
-      this.emitIngredients();
     },
     emitIngredients() {
       this.$emit('ingredients-updated', this.itemsArray);
