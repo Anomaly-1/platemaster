@@ -1,12 +1,12 @@
-# FoodClick Web App
+# PlateMaster Web App
 
-![FoodClick](FoodClick.jpg)
+![PlateMaster](platemaster.jpg)
 
-FoodClick is a web application designed to simplify meal planning by allowing users to take pictures of their fridges and receive recipe recommendations based on the ingredients they have. Users can also save their favorite recipes for future reference.
+PlateMaster is a comprehensive food app designed to simplify meal planning and nutrition tracking. With PlateMaster, users can generate and search for recipes based on the ingredients they have on hand, whether listed manually or scanned directly from their fridge. Additionally, PlateMaster provides personalized nutritional information, including BMI calculation and recommended daily calorie intake to help users meet their weight goals. Users can also save their favorite recipes and analyze the nutritional content of their custom recipes.
 
 ## Technologies Used
 
-FoodClick is built using the following technologies:
+PlateMaster leverages the following technologies:
 
 - **Nuxt.js**
 - **Vue.js**
@@ -18,6 +18,7 @@ FoodClick is built using the following technologies:
 - **Vite.js**
 - **SCSS**
 - **Gemini API**
+- **EDAMAM API**
 
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nuxtjs/nuxtjs-original.svg" />
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vuejs/vuejs-original.svg" />
@@ -28,14 +29,22 @@ FoodClick is built using the following technologies:
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
 <img width=76px src="https://natqe.gallerycdn.vsassets.io/extensions/natqe/scss-generator/1.2.9/1550339585248/Microsoft.VisualStudio.Services.Icons.Default" />
 <img width=40px src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg" />
+<img width=40px src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7pZy3zgX5-Ww4BzY4Uipdgblv-fMhHRfSnMT8eIHZHw&s" />
 
 ## Features
 
-FoodClick offers the following features:
+PlateMaster offers the following features:
 
-- **Fridge Image Recognition**: Users can upload pictures of their fridges, and the application uses image recognition to identify the ingredients available.
-- **Recipe Recommendations**: Based on the identified ingredients, FoodClick suggests recipes that users can prepare using those ingredients.
-- **Save Recipes**: Users can save their favorite recipes to access them later for cooking.
+- Recipe Generation: Users can generate recipes based on the ingredients they have available, either manually listed or scanned from their fridge.
+
+- Recipe Search: PlateMaster allows users to search for recipes using specific ingredients.
+
+- Personalized Nutrition: PlateMaster provides personalized nutritional information, including BMI calculation and recommended daily calorie intake tailored to users' weight goals.
+
+- Recipe Saving: Users can save their favorite recipes for quick access later.
+
+- Custom Recipe Analysis: PlateMaster enables users to analyze the nutritional content of their custom recipes.
+
 
 ---
 
@@ -63,19 +72,18 @@ To run FoodClick locally, follow these steps:
 
 ## Usage
 
-1. Sign up or log in to your FoodClick account.
-2. Take a picture of your fridge or upload an existing image.
-3. Explore the recipe recommendations based on your fridge's contents.
-4. Save your favorite recipes for quick access later.
-
-## How To Guide
-[Click Here](https://scribehow.com/shared/FoodClick__How_To__Q0BlpagwS3eeP4ZW0P4cRQ)
+1. Sign up or log in to your PlateMaster account.
+2. List or scan the ingredients you have available.
+3. Generate or search for recipes based on your ingredients.
+4. View personalized nutritional information to meet your weight goals.
+5. Save your favorite recipes for quick access.
+6. Analyze the nutritional content of your custom recipes.
 
 ---
 
 ## Notice
 
-A .env file containing a supabase key & url + a Gemini key is required for this program to function.
+A .env file containing a supabase key & url + a Gemini key + EDAMAM account is required for this program to function. (Nutrition Info may not always be 100% accurate)
 
 ## License
 

@@ -8,11 +8,11 @@
       </div>
       <input v-model="recipeTitle" class="w-full h-12 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Recipe Title">
       <textarea v-model="inputText" class="w-full h-32 sm:h-40 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Type your ingredients here..."></textarea>
-      <textarea v-model="recipeSummary" class="w-full h-32 sm:h-40 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Recipe Summary"></textarea>
-      <input v-model="cookingTime" class="w-full h-12 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Cooking Time">
-      <textarea v-model="prepInstructions" class="w-full h-32 sm:h-40 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Preparation Instructions"></textarea>
-      <button :disabled="cooldown > 0" @click="handleButtonClick" class="w-full py-2 px-4 text-white border border-white rounded-full transition duration-300 ease-in-out hover:bg-white hover:text-black focus:outline-none focus:border-transparent focus:ring-2 focus:ring-blue-500">
-        <span v-if="cooldown === 0">Analyze</span>
+      <textarea v-model="recipeSummary" class="w-full h-32 sm:h-40 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Recipe Summary *Optional"></textarea>
+      <input v-model="cookingTime" class="w-full h-12 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Cooking Time *Optional">
+      <textarea v-model="prepInstructions" class="w-full h-32 sm:h-40 px-4 py-2 mb-4 border border-white bg-black text-white rounded-lg resize-none focus:outline-none focus:border-green-200" placeholder="Preparation Instructions *Optional"></textarea>
+      <button :disabled="cooldown > 0" @click="handleButtonClick" class="rounded-md w-full py-2 px-4 transition duration-300 ease-in-out border border-emerald-600 bg-black text-emerald-600 font-bold py-4 px-8 rounded-lg border-2 transition duration-300 hover:border-white hover:text-emerald-600">
+        <span v-if="cooldown === 0" class="text-xl">Analyze</span>
         <span v-else>
           <!-- Clock icon -->
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="white" class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 lg:w-12 lg:h-12">

@@ -35,7 +35,7 @@ async function logout() {
 
 
 
-        <aside id="default-sidebar" class="dark bg-black fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 translate-x-0" aria-label="Sidebar">
+        <aside id="default-sidebar" class="dark bg-zinc-800 fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 translate-x-0" aria-label="Sidebar">
             <div class="h-full px-3 py-4 overflow-y-auto border-r-4">
                 <ul class="space-y-3 font-medium">
                     <li>

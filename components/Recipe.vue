@@ -1,7 +1,10 @@
 <template>
   <div class="max-w-md mx-auto ml-8">
-    <div class="bg-black dark:bg-white shadow-md border-2 border-white dark:border-black p-6">
+    <div class="shadow-md border-2 border-white rounded-md h-full p-6">
       <h1 class="text-4xl font-bold mb-4 text-white dark:text-black">Recipe</h1>
+      <div v-if="isLoading" class="hidden md:flex md:w-1/3 items-center justify-center mt-14">
+        <img src="/tomato.png" alt="Avocado" class="w-96 h-auto floating-card mb-2">
+      </div>
       <div v-if="isLoading" class="text-gray-400 dark:text-gray-600">Loading...</div>
       <div v-else-if="response">
         <div class="markdown-content" v-html="renderedMarkdown"></div>
@@ -100,5 +103,28 @@ export default {
 </script>
 
 <style scoped>
-/* Add any additional styles for the search bar here */
+/* Add any additional styling here */
+.outfit-outfit {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600; /* Adjust the font weight as needed */
+  font-style: normal;
+}
+
+#title {
+  font-weight: 600;
+}
+
+.floating-card {
+  animation: floatAnimation 3s infinite alternate cubic-bezier(0.4, 0, 0.2, 1); /* Adjust duration as needed */
+}
+
+@keyframes floatAnimation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-30px); /* Adjust the amount of floating */
+  }
+}
 </style>

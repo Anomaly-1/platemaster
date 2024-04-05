@@ -32,6 +32,7 @@ export default {
     updateSliderValue() {
       // Update slider value
       this.sliderCounter = this.sliderValue;
+      this.maxLimit = parseInt(this.limit);
     },
     submitInput() {
       // Emit event with the slider value when the user clicks the button

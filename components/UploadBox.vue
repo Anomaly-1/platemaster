@@ -1,5 +1,5 @@
 <template>
-  <div class="relative">
+  <div class="relative rounded rounded-md shadow-md shadow-black">
     <label for="imageInput" class="w-full md:w-100 lg:w-140 md:h-80 max-w-3xl mx-auto border-white rounded-lg overflow-hidden shadow-lg flex">
       <div class="w-full md:w-2/3 p-6 space-y-6">
         <h1 id="title" class="text-xl md:text-3xl font-bold text-white mb-2 outfit-outfit">Find Ingredients</h1>

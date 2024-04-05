@@ -5,17 +5,17 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <div class="flex justify-center mt-8 items-center">
-      <button @click="navigateTo('/start')"
-        class="border border-white bg-black text-white font-bold py-2 px-4 rounded transition duration-300 hover:bg-white hover:text-black"
-      >
-        Modify Data
-      </button>
-    </div>
+  <div class="flex justify-center items-center h-screen">
+    <button @click="navigateTo('/start')"
+      class="border border-emerald-600 bg-black text-emerald-600 font-bold py-4 px-8 rounded-lg transition duration-300 hover:bg-white text-3xl hover:text-emerald-600"
+    >
+      Modify Data
+    </button>
   </div>
   <Sidebar/>
 </template>
+
+
 <script>
 export default {
   

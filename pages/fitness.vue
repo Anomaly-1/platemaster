@@ -109,10 +109,7 @@ export default {
 
     function calculateBMI(weight, height) {
       // Calculate BMI
-      const heightM = height * 0.0254;
-      
-      console.log(((weight/(0.99999918429)*(0.4535920000001679)) / (heightM * heightM)).toFixed(2))
-      return ((weight/(0.99999918429)*(0.4535920000001679)) / (heightM * heightM)).toFixed(2);
+      return (((weight) / (height * height))*703).toFixed(2);
     }
 
     function calculateRecommendedCalories(sex, age, weight, height, lifestyle, changepref) {
