@@ -1,4 +1,5 @@
 <template>
+  <img src="/platemaster.png" alt="Logo" class="absolute top-0 right-0 w-36 h-auto mt-4 mr-4" />
   <div class="container mx-auto px-4 py-8 flex flex-col lg:flex-row overflow-y-auto h-screen">
     <!-- Left side with input -->
     <div class="lg:w-1/2 lg:pr-4 mt-20">

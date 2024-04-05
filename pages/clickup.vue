@@ -1,4 +1,5 @@
-<template>
+<template> 
+<img src="/platemaster.png" alt="Logo" class="absolute top-0 right-0 w-36 h-auto mt-4 mr-4" />
   <div class="absolute h-screen w-screen flex items-center justify-center">
     <div class="flex">
       <div class="overflow-hidden">

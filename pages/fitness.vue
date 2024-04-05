@@ -1,4 +1,5 @@
 <template>
+  <img src="/platemaster.png" alt="Logo" class="absolute top-0 right-0 w-36 h-auto mt-4 mr-4" />
   <div class="flex justify-center items-center h-screen">
     <div class="m-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
       <!-- Card for displaying BMI -->
