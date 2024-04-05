@@ -1,6 +1,6 @@
 # PlateMaster Web App
 
-![PlateMaster](platemaster.png)
+![PlateMaster](public/platemaster.png)
 
 PlateMaster is a comprehensive food app designed to simplify meal planning and nutrition tracking. With PlateMaster, users can generate and search for recipes based on the ingredients they have on hand, whether listed manually or scanned directly from their fridge. Additionally, PlateMaster provides personalized nutritional information, including BMI calculation and recommended daily calorie intake to help users meet their weight goals. Users can also save their favorite recipes and analyze the nutritional content of their custom recipes.
 
