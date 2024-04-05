@@ -1,5 +1,5 @@
 <template>
-    <title>FoodClick</title>
+    <title>PlateMaster</title>
     <html id="page">
       <body class="transition-colors bg-zinc-900 relative">
         <!-- Image in the top right corner -->
