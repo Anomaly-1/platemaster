@@ -61,8 +61,6 @@ export default {
         const supabase = useSupabaseClient();
         const { data: { user } } = await supabase.auth.getUser()
 
-        console.log(recipeText)
-
         const { data, error } = await supabase.from('recipes').insert([
           { username: user.email, recipe_text: recipeText }
         ]);
@@ -80,7 +78,7 @@ export default {
     async sendToGeminiAPI(items) {
       this.isLoading = true;
       const genAI = new GoogleGenerativeAI(gemini);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
       const prompt = " Create an original ideal recipe using these ingredients (including portions) with numbered separated steps:" + items.join(" ") + "Your Response should be in aesthetic Markdown and contain THREE parts: 1. ## Title of the Recipe: (Provide a clear and descriptive title for your recipe.) 2. **Ingredients**: (List the ingredients with bullet points.) 3. **Steps**: (List the steps with numbered points.) Ensure to use Markdown syntax for proper formatting. Add a '\n' character anywhere there is a newline needed. ";
 
       try {
