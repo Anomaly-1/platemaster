@@ -88,5 +88,3 @@ A .env file containing a supabase key & url + a Gemini key + EDAMAM account is r
 ## License
 
 This project is licensed under the BSD-Clause-3 License - see the [LICENSE](https://opensource.org/license/bsd-3-clause/) file for details.
-
-Created by Arjun Hariharan - TSA Software Development
