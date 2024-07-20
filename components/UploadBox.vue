@@ -73,7 +73,7 @@ export default {
     },
     async run(genpart) {
       const genAI = new GoogleGenerativeAI(gemini);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
+      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
       const prompt = "Clearly and ONLY list ALL food ingredients in this image, every ingredient should have the first letter capitalized and should be only separated by a single space. It should only contain valid food ingredients.";
 
