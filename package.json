@@ -19,13 +19,13 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.2.0",
-    "@vueuse/core": "^10.7.2",
+    "@google/generative-ai": "^0.17.1",
+    "@vueuse/core": "^10.11.1",
     "animejs": "^3.2.2",
     "dotenv": "^16.4.5",
-    "marked": "^12.0.0",
+    "marked": "^12.0.2",
     "particles.js": "^2.0.0",
-    "vue-data-ui": "^2.0.54",
+    "vue-data-ui": "^2.2.78",
     "vue-nutrition-label": "^1.6.7"
   }
 }
